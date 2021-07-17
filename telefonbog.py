@@ -48,6 +48,7 @@ class Lookup(QtWidgets.QWidget):
     @QtCore.Slot()
     def lookup(self):
         """ run lookup """
+        self.textResult.clear()
         if self.textAddress.text() == "vejnavn [nr], postnummer":
             self.textResult.setText("kan ikke findes")
             return
@@ -55,9 +56,9 @@ class Lookup(QtWidgets.QWidget):
         self.textResult.setText("Vent venligst ...")
         results = parse_url.parse_url(self.textAddress.text())
         if not results:
+            self.textResult.clear()
             self.textResult.setText("Ikke fundet")
             return
-        self.textResult.clear()
         txt = ""
         for result in results:
             txt = f"{txt}Adresse : {result['address']}\n"
@@ -65,11 +66,12 @@ class Lookup(QtWidgets.QWidget):
             for number in result["phones"]:
                 txt = f"{txt}    Tlf : {number}\n"
             txt = f"{txt}---------------------\n"
+        self.textResult.clear()
         self.textResult.setText(txt)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
     widget = Lookup()
-    widget.resize(400, 600)
+    widget.resize(600, 600)
     widget.show()
     sys.exit(app.exec())

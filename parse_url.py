@@ -39,7 +39,7 @@ contacts = list()
 # firma søgning  : https://www.118.dk/search/go?pageSize=100&page=1&listingType=business&where=
 # alle søgning   : https://www.118.dk/search/go?pageSize=100&page=1&listingType=&where=
 # ingen grund til at fortælle at dette er et script
-USER_AGENT = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0"}
+USER_AGENT = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
 SEARCH_118_URL = "https://www.118.dk/search/go?pageSize=100&page=1&listingType=residential&where="
 SITE = "118.dk"
 

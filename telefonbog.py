@@ -57,6 +57,7 @@ class Lookup(QtWidgets.QWidget):
         if not results:
             self.textResult.setText("Ikke fundet")
             return
+        self.textResult.clear()
         txt = ""
         for result in results:
             txt = f"{txt}Adresse : {result['address']}\n"

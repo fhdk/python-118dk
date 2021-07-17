@@ -34,8 +34,9 @@ class Lookup(QtWidgets.QWidget):
         self.buttonLookup = QtWidgets.QPushButton("Lav opslag 118.dk")
         self.labelAddressHint = QtWidgets.QLabel("Husnummer kan bruges som afgrænsning på større områder.\nEksempel: Ryhaven, 8210 eller Bispehavevej 121, 8210")
         self.textAddress = QtWidgets.QLineEdit("vejnavn [nr], postnummer")
-        self.textResult = QtWidgets.QTextEdit()
-        self.textResult.setFont("monospace")
+        self.textResult = QtWidgets.QTextEdit("")
+        self.textResult.setReadOnly(True)
+        self.textResult.setFontFamily("monospace")
 
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.labelAddressHint)
@@ -50,15 +51,12 @@ class Lookup(QtWidgets.QWidget):
         """ run lookup """
         self.textResult.clear()
         if self.textAddress.text() == "vejnavn [nr], postnummer":
-            self.textResult.setText("kan ikke findes")
+            self.textResult.setPlainText("kan ikke findes")
             return
         # run lookup
-        self.textResult.setText("Vent venligst ...")
+
+        self.textResult.setPlainText("Vent venligst ...")
         results = parse_url.parse_url(self.textAddress.text())
-        if not results:
-            self.textResult.clear()
-            self.textResult.setText("Ikke fundet")
-            return
         txt = ""
         for result in results:
             txt = f"{txt}Adresse : {result['address']}\n"
@@ -66,8 +64,7 @@ class Lookup(QtWidgets.QWidget):
             for number in result["phones"]:
                 txt = f"{txt}    Tlf : {number}\n"
             txt = f"{txt}---------------------\n"
-        self.textResult.clear()
-        self.textResult.setText(txt)
+        self.textResult.setPlainText(txt)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])

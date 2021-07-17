@@ -30,10 +30,7 @@ import urllib.request
 import urllib.parse
 import urllib
 
-strings = list()
-entries = list()
-phones = list()
-contacts = list()
+
 # 118.dk
 # person søgning : https://www.118.dk/search/go?pageSize=100&page=1&listingType=residential&where=
 # firma søgning  : https://www.118.dk/search/go?pageSize=100&page=1&listingType=business&where=
@@ -44,6 +41,10 @@ SEARCH_118_URL = "https://www.118.dk/search/go?pageSize=100&page=1&listingType=r
 SITE = "118.dk"
 
 def parse_url(address):
+    strings = list()
+    entries = list()
+    phones = list()
+    contacts = list()
     url = f"{SEARCH_118_URL}{urllib.parse.quote_plus(address)}"
     req = urllib.request.Request(url=url, headers=USER_AGENT)
     with urllib.request.urlopen(req) as res:
@@ -96,7 +97,7 @@ def parse_url(address):
         except (Exception,):
             continue
 
-    results = sorted(contacts, key=itemgetter("address"))
+    return sorted(contacts, key=itemgetter("address"))
 
     # for result in results:
     #     print(f"Adresse : {result['address']}")
@@ -104,9 +105,6 @@ def parse_url(address):
     #     for number in result["phones"]:
     #         print(f"    Tlf : {number}")
     #     print(f"---------------------")
-
-    return results
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-a", "--adresse", required=True, type=str, help="vejnavn [nr], postnummer")

@@ -99,14 +99,15 @@ def parse_url(address):
 
     return sorted(contacts, key=itemgetter("address"))
 
-    # for result in results:
-    #     print(f"Adresse : {result['address']}")
-    #     print(f"   Navn : {result['name']}")
-    #     for number in result["phones"]:
-    #         print(f"    Tlf : {number}")
-    #     print(f"---------------------")
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-a", "--adresse", required=True, type=str, help="vejnavn [nr], postnummer")
     args = parser.parse_args()
-    parse_url(args.adresse)
+    results = parse_url(args.adresse)
+
+    for result in results:
+        print(f"Adresse : {result['address']}")
+        print(f"   Navn : {result['name']}")
+        for number in result["phones"]:
+            print(f"    Tlf : {number}")
+        print(f"---------------------")
